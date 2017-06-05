@@ -1,6 +1,10 @@
 # Deer
 
-一款简洁的firekylin主题
+<center>一款简洁的firekylin主题</center>
+
+<center>未开发完 暂无使用</center>
+
+<center>![](screenshot.png)</center>
 
 ## 使用方法
 
