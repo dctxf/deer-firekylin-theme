@@ -2,7 +2,7 @@
  * @Author: dctxf
  * @Date:   2017-06-05 14:34:18
  * @Last Modified by:   dctxf
- * @Last Modified time: 2017-06-05 16:04:31
+ * @Last Modified time: 2017-06-05 17:08:03
  */
 
 'use strict';
@@ -18,11 +18,16 @@ const inlinesource = require('gulp-inline-source');
 const LessAutoprefix = require('less-plugin-autoprefix');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefix = new LessAutoprefix({ browsers: ['last 8 versions'] });
+const htmlmin = require('gulp-htmlmin');
 // html编译
 gulp.task('html', ['css'], function () {
   return gulp.src(CONFIG.DEV + '/html/**/*.html')
     .pipe(inlinesource())
-    .pipe(gulp.dest(CONFIG.DIST));
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      ignoreCustomFragments:[/{%[\s\S]*?%}/,/{{[\s\S]*?}}/]
+    }))
+    .pipe(gulp.dest(CONFIG.DIST+'/html'));
 });
 // css编译-补全
 gulp.task('css', function () {
