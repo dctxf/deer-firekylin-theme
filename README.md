@@ -1,11 +1,12 @@
 # Deer
 <div align="center">
-<h2>一款简洁的firekylin主题</h2>
 <h3>未开发完 暂无使用</h3>
 <div>
-<a href="https://dctxf.com"><img src="screenshot.png" width="800" height="500"/></a>
+<a href="https://dctxf.com"><img src="screenshot.png" width="400" height="250"/></a>
 </div>
 </div>
+
+一款简洁的firekylin主题
 
 ## 使用方法
 
