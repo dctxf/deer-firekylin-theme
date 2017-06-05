@@ -2,7 +2,7 @@
  * @Author: dctxf
  * @Date:   2017-06-05 14:34:18
  * @Last Modified by:   dctxf
- * @Last Modified time: 2017-06-05 17:08:03
+ * @Last Modified time: 2017-06-05 17:08:45
  */
 
 'use strict';
@@ -27,7 +27,7 @@ gulp.task('html', ['css'], function () {
       collapseWhitespace: true,
       ignoreCustomFragments:[/{%[\s\S]*?%}/,/{{[\s\S]*?}}/]
     }))
-    .pipe(gulp.dest(CONFIG.DIST+'/html'));
+    .pipe(gulp.dest(CONFIG.DIST));
 });
 // css编译-补全
 gulp.task('css', function () {
