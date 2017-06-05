@@ -1,0 +1,89 @@
+#sidebar {
+    width: 50px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #292929;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
+    font-size: 12px;
+}
+
+#sidebar .profile {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    position: relative;
+}
+#sidebar .profile:hover span{
+  display: block;
+}
+#sidebar .profile a,
+#sidebar .profile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+#sidebar .profile a {
+    display: block;
+    margin: 0 auto;
+}
+
+#sidebar .profile span {
+    display: none;
+    padding: 10px;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    position: absolute;
+    background: #202020;
+    top: 15px;
+    left: 50px;
+    white-space: nowrap;
+    height: 40px;
+}
+
+#sidebar .buttons {
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+}
+
+#sidebar .buttons li {
+    display: block;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center
+}
+
+#sidebar .buttons li a {
+    display: block;
+    color: #666;
+    -webkit-transition: color .2s cubic-bezier(.4, .01, .165, .99);
+    transition: color .2s cubic-bezier(.4, .01, .165, .99);
+    text-decoration: none;
+    position: relative;
+}
+
+#sidebar .buttons li a span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#sidebar .buttons li a:hover {
+    color: #fff;
+}
+
+#sidebar-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    overflow: hidden;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.72);
+}
