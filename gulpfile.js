@@ -2,14 +2,15 @@
  * @Author: dctxf
  * @Date:   2017-06-05 14:34:18
  * @Last Modified by:   dctxf
- * @Last Modified time: 2017-06-05 17:08:45
+ * @Last Modified time: 2017-06-07 18:01:58
  */
 
 'use strict';
 
 const CONFIG = {
   DEV: './src',
-  DIST: './'
+  DIST: './',
+  PAGES: './pages'
 };
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -19,15 +20,19 @@ const LessAutoprefix = require('less-plugin-autoprefix');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefix = new LessAutoprefix({ browsers: ['last 8 versions'] });
 const htmlmin = require('gulp-htmlmin');
-// html编译
-gulp.task('html', ['css'], function () {
-  return gulp.src(CONFIG.DEV + '/html/**/*.html')
+const nunjucksRender = require('gulp-nunjucks-render');
+const browserSync = require('browser-sync').create();
+const reload = browserSync.reload;
+const data = require('./data/data.json');
+gulp.task('render', ['server'], function () {
+  return gulp.src(CONFIG.DEV + '/html/index.html')
     .pipe(inlinesource())
-    .pipe(htmlmin({
-      collapseWhitespace: true,
-      ignoreCustomFragments:[/{%[\s\S]*?%}/,/{{[\s\S]*?}}/]
+    .pipe(nunjucksRender({
+      path: '.',
+      data: data,
+      inheritExtension: true,
     }))
-    .pipe(gulp.dest(CONFIG.DIST));
+    .pipe(gulp.dest(CONFIG.PAGES));
 });
 // css编译-补全
 gulp.task('css', function () {
@@ -40,7 +45,28 @@ gulp.task('css', function () {
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(CONFIG.DEV + '/css'));
 });
-gulp.task('default', ['html'], function () {
+// 静态服务器
+gulp.task('server', function () {
+  browserSync.init({
+    server: {
+      baseDir: CONFIG.PAGES,
+      routes:{
+        '/static':'../../static/'
+      }
+    }
+  });
+});
+// 构建
+gulp.task('build', ['css'], function () {
+  return gulp.src(CONFIG.DEV + '/html/**/*.html')
+    .pipe(inlinesource())
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      ignoreCustomFragments: [/{%[\s\S]*?%}/, /{{[\s\S]*?}}/]
+    }))
+    .pipe(gulp.dest(CONFIG.DIST));
+});
+gulp.task('default', ['dev'], function () {
   gulp.watch(CONFIG.DEV + '/less/**/*.less', ['html']);
   gulp.watch(CONFIG.DEV + '/html/**/*.html', ['html']);
 });

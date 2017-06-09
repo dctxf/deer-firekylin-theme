@@ -9,6 +9,13 @@
 
 一款简洁的firekylin主题
 
+## Notice
+
+**如果你仅仅是使用，请忽略这段话。**
+
+如果你要开发，**请一定先关闭代码格式化**，不要问我为什么 😂
+
+
 ## Usage
 
 ```bash
@@ -20,7 +27,12 @@ mv deer-firekylin-theme deer
 
 ## Features
 
-- [x] 内连样式
-- [x] html压缩
-- [ ] css3动画
-- [ ] 自适应
+- [x] css inline
+- [x] html minify
+- [ ] base64
+- [ ] css3 animation
+- [ ] adaptive layout
+- [ ] nunjucks-render
+
+
+

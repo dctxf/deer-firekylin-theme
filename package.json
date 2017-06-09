@@ -74,6 +74,7 @@
     "less-plugin-autoprefix": "^1.5.1"
   },
   "devDependencies": {
-    "gulp-autoprefixer": "^4.0.0"
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-nunjucks-render": "^2.2.1"
   }
 }
