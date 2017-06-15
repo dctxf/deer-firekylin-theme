@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
   <title>{% block title %}{% endblock %}</title>
-  <link rel="icon" href="{{options.favicon_url |default('/static/img/firekylin.jpg')}}">
-  {% if options.favicon %}
+  <link rel="icon" href="{{options.favicon_url |default('/static/img/firekylin.jpg')}}"> {% if options.favicon %}
   <link rel="shortcut icon" href="{{options.favicon}}" type="image/x-icon">{% endif %}
   <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.html">
   <link rel=search type="application/opensearchdescription+xml" href="/opensearch.xml" title="{{ options.title }}"> {% if options.keywords %}
