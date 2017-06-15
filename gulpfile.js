@@ -2,15 +2,16 @@
  * @Author: dctxf
  * @Date:   2017-06-05 14:34:18
  * @Last Modified by:   dctxf
- * @Last Modified time: 2017-06-15 14:32:19
+ * @Last Modified time: 2017-06-15 16:42:43
  */
 
 'use strict';
-
 const CONFIG = {
   DEV: './src',
-  DIST: './',
-  PAGES: './dist'
+  FIRE: './firekylin/',
+  DIST: './dist',
+  RES: './firekylin/www/theme/deer/res/',
+  THEME: './firekylin/www/theme/deer/'
 };
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -19,21 +20,9 @@ const inlinesource = require('gulp-inline-source');
 const LessAutoprefix = require('less-plugin-autoprefix');
 const sourcemaps = require('gulp-sourcemaps');
 const autoprefix = new LessAutoprefix({ browsers: ['last 8 versions'] });
+const cleanCSS = require('gulp-clean-css');
 const htmlmin = require('gulp-htmlmin');
-const nunjucksRender = require('gulp-nunjucks-render');
-const browserSync = require('browser-sync').create();
-const reload = browserSync.reload;
-const data = require('./data/data.json');
-gulp.task('render', ['server'], function () {
-  return gulp.src(CONFIG.DEV + '/html/index.html')
-    .pipe(inlinesource())
-    .pipe(nunjucksRender({
-      path: '.',
-      data: data,
-      inheritExtension: true,
-    }))
-    .pipe(gulp.dest(CONFIG.PAGES));
-});
+const clean = require('gulp-clean');
 // css编译-补全
 gulp.task('css', function () {
   return gulp.src(CONFIG.DEV + '/less/**/all.less')
@@ -42,23 +31,28 @@ gulp.task('css', function () {
       paths: [path.join(__dirname, 'less', 'includes')],
       plugins: [autoprefix]
     }))
+    .pipe(cleanCSS({ compatibility: 'ie8' }))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(CONFIG.DEV + '/css'));
+    .pipe(gulp.dest(CONFIG.RES + '/css'));
 });
-// 静态服务器
-gulp.task('server', function () {
-  browserSync.init({
-    server: {
-      baseDir: CONFIG.PAGES,
-      routes: {
-        '/static': '../../static/'
-      }
-    }
-  });
+// clean
+gulp.task('clean', ['clean-dist']);
+gulp.task('clean-dist', function () {
+  return gulp.src(CONFIG.DIST, { read: false })
+    .pipe(clean());
 });
-// 构建
-gulp.task('build', ['css'], function () {
-  return gulp.src(CONFIG.DEV + '/html/**/*.html')
+gulp.task('copy', function () {
+  var files = ['README.md', 'package.json', 'screenshot.png'];
+  return gulp.src(files).pipe(gulp.dest(CONFIG.DIST));
+});
+
+// env
+gulp.task('dev', ['css'], function () {
+  gulp.watch(CONFIG.DEV + '/less/**/*.less', ['css']);
+});
+// build
+gulp.task('build', ['css', 'copy'], function () {
+  return gulp.src(CONFIG.THEME + '/**/*.html')
     .pipe(inlinesource())
     .pipe(htmlmin({
       collapseWhitespace: true,
@@ -66,8 +60,5 @@ gulp.task('build', ['css'], function () {
     }))
     .pipe(gulp.dest(CONFIG.DIST));
 });
-gulp.task('default', ['dev'], function () {
-  gulp.watch(CONFIG.DEV + '/less/**/*.less', ['html']);
-  gulp.watch(CONFIG.DEV + '/html/**/*.html', ['html']);
-});
+gulp.task('default', ['dev']);
 
