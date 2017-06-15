@@ -2,7 +2,7 @@
  * @Author: dctxf
  * @Date:   2017-06-05 14:34:18
  * @Last Modified by:   dctxf
- * @Last Modified time: 2017-06-07 18:01:58
+ * @Last Modified time: 2017-06-15 14:32:19
  */
 
 'use strict';
@@ -10,7 +10,7 @@
 const CONFIG = {
   DEV: './src',
   DIST: './',
-  PAGES: './pages'
+  PAGES: './dist'
 };
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -50,8 +50,8 @@ gulp.task('server', function () {
   browserSync.init({
     server: {
       baseDir: CONFIG.PAGES,
-      routes:{
-        '/static':'../../static/'
+      routes: {
+        '/static': '../../static/'
       }
     }
   });
