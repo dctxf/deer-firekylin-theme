@@ -2,7 +2,7 @@
  * @Author: dctxf
  * @Date:   2017-06-05 14:34:18
  * @Last Modified by:   dctxf
- * @Last Modified time: 2017-06-15 16:42:43
+ * @Last Modified time: 2017-06-16 09:29:28
  */
 
 'use strict';
@@ -42,7 +42,7 @@ gulp.task('clean-dist', function () {
     .pipe(clean());
 });
 gulp.task('copy', function () {
-  var files = ['README.md', 'package.json', 'screenshot.png'];
+  var files = ['README.md', 'package.json', 'screenshot.png', 'LICENSE'];
   return gulp.src(files).pipe(gulp.dest(CONFIG.DIST));
 });
 
